@@ -57,7 +57,38 @@
         button:hover {
             background-color: #45a049; /* Button Hover-Effekt */
         }
+        button:disabled {
+            background-color: gray; /* Deaktivierter Button-Hintergrund */
+            cursor: not-allowed;
+        }
     </style>
+    <script>
+        function validateForm() {
+            let valid = true;
+            for (let i = 1; i <= 10; i++) {
+                const ratings = document.getElementsByName('k' + i);
+                let rated = false;
+                for (let rating of ratings) {
+                    if (rating.checked) {
+                        rated = true;
+                        break;
+                    }
+                }
+                if (!rated) {
+                    valid = false;
+                    break;
+                }
+            }
+            document.getElementById('submit-btn').disabled = !valid;
+        }
+        window.onload = function() {
+            const ratingInputs = document.querySelectorAll('.options input');
+            for (let input of ratingInputs) {
+                input.addEventListener('change', validateForm);
+            }
+            validateForm();
+        }
+    </script>
 </head>
 <body>
 
@@ -96,7 +127,6 @@
             </div>
         </div>
 
-        <!-- Weitere Kategorien (2 bis 10) -->
         <!-- Kategorie 2 -->
         <div class="category">
             <label>Kategorie 2:</label>
@@ -379,7 +409,7 @@
         </div>
 
         <!-- Abschicken-Button -->
-        <button type="submit">Abschicken</button>
+        <button type="submit" id="submit-btn">Abschicken</button>
 
 
 
