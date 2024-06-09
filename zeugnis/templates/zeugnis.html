@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bewertung für Vorgesetzten</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Hintergrundfarbe */
+        }
+        h1 {
+            text-align: center;
+            color: #333; /* Überschriftfarbe */
+            font-size: 24px; /* Schriftgröße der Überschrift */
+            margin-bottom: 80px; /*Abstand unter der Überschrift */
+        }
+        .category {
+            margin-bottom: 60px; /* Abstand zwischen den Kategorien*/
+            font-size: 16px; /* Schriftgröße der Kategorien */
+        }
+        .category label {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 18px;/* Schrift der Labels*/
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .option {
+            text-align: center;
+            color: #555; /* Farbe der Optionen */
+            margin-top:12px;
+        
+        }
+        .option label {
+            display: block;
+            font-size: 14px; /* Schriftgröße der Option Labels */
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px; /* Schriftgröße des Buttons */
+            cursor: pointer;
+            background-color: #0976f2; /* Hintergrundfarbe des Buttons */
+            color: white; /* Schriftfarbe des Buttons */
+            border: none;
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+
+        }
+        button:hover {
+            background-color: #45a049; /* Button Hover-Effekt */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Meine Bewertung für meinen Vorgesetzten Person1</h1>
+
+    <form>
+        <!-- Kategorien -->
+        <div class="category">
+            <label>Kategorie 1:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k1-1" name="k1" value="1">
+                    <label for="k1-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k1-2" name="k1" value="2">
+                    <label for="k1-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k1-3" name="k1" value="3">
+                    <label for="k1-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k1-4" name="k1" value="4">
+                    <label for="k1-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k1-5" name="k1" value="5">
+                    <label for="k1-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k1-0" name="k1" value="0">
+                    <label for="k1-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weitere Kategorien (2 bis 10) -->
+        <!-- Kategorie 2 -->
+        <div class="category">
+            <label>Kategorie 2:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k2-1" name="k2" value="1">
+                    <label for="k2-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k2-2" name="k2" value="2">
+                    <label for="k2-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k2-3" name="k2" value="3">
+                    <label for="k2-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k2-4" name="k2" value="4">
+                    <label for="k2-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k2-5" name="k2" value="5">
+                    <label for="k2-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k2-0" name="k2" value="0">
+                    <label for="k2-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorien 3 bis 10 -->
+
+        <!-- Kategorie 3 -->
+        <div class="category">
+            <label>Kategorie 3:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k3-1" name="k3" value="1">
+                    <label for="k3-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k3-2" name="k3" value="2">
+                    <label for="k3-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k3-3" name="k3" value="3">
+                    <label for="k3-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k3-4" name="k3" value="4">
+                    <label for="k3-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k3-5" name="k3" value="5">
+                    <label for="k3-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k3-0" name="k3" value="0">
+                    <label for="k3-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 4 -->
+        <div class="category">
+            <label>Kategorie 4:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k4-1" name="k4" value="1">
+                    <label for="k4-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k4-2" name="k4" value="2">
+                    <label for="k4-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k4-3" name="k4" value="3">
+                    <label for="k4-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k4-4" name="k4" value="4">
+                    <label for="k4-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k4-5" name="k4" value="5">
+                    <label for="k4-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k4-0" name="k4" value="0">
+                    <label for="k4-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 5 -->
+        <div class="category">
+            <label>Kategorie 5:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k5-1" name="k5" value="1">
+                    <label for="k5-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k5-2" name="k5" value="2">
+                    <label for="k5-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k5-3" name="k5" value="3">
+                    <label for="k5-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k5-4" name="k5" value="4">
+                    <label for="k5-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k5-5" name="k5" value="5">
+                    <label for="k5-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k5-0" name="k5" value="0">
+                    <label for="k5-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 6 -->
+        <div class="category">
+            <label>Kategorie 6:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k6-1" name="k6" value="1">
+                    <label for="k6-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k6-2" name="k6" value="2">
+                    <label for="k6-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k6-3" name="k6" value="3">
+                    <label for="k6-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k6-4" name="k6" value="4">
+                    <label for="k6-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k6-5" name="k6" value="5">
+                    <label for="k6-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k6-0" name="k6" value="0">
+                    <label for="k6-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 7 -->
+        <div class="category">
+            <label>Kategorie 7:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k7-1" name="k7" value="1">
+                    <label for="k7-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k7-2" name="k7" value="2">
+                    <label for="k7-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k7-3" name="k7" value="3">
+                    <label for="k7-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k7-4" name="k7" value="4">
+                    <label for="k7-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k7-5" name="k7" value="5">
+                    <label for="k7-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k7-0" name="k7" value="0">
+                    <label for="k7-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 8 -->
+        <div class="category">
+            <label>Kategorie 8:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k8-1" name="k8" value="1">
+                    <label for="k8-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k8-2" name="k8" value="2">
+                    <label for="k8-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k8-3" name="k8" value="3">
+                    <label for="k8-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k8-4" name="k8" value="4">
+                    <label for="k8-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k8-5" name="k8" value="5">
+                    <label for="k8-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k8-0" name="k8" value="0">
+                    <label for="k8-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 9 -->
+        <div class="category">
+            <label>Kategorie 9:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k9-1" name="k9" value="1">
+                    <label for="k9-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k9-2" name="k9" value="2">
+                    <label for="k9-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k9-3" name="k9" value="3">
+                    <label for="k9-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k9-4" name="k9" value="4">
+                    <label for="k9-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k9-5" name="k9" value="5">
+                    <label for="k9-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k9-0" name="k9" value="0">
+                    <label for="k9-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorie 10 -->
+        <div class="category">
+            <label>Kategorie 10:</label>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="k10-1" name="k10" value="1">
+                    <label for="k10-1">1: sehr gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k10-2" name="k10" value="2">
+                    <label for="k10-2">2: gut</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k10-3" name="k10" value="3">
+                    <label for="k10-3">3: befriedigend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k10-4" name="k10" value="4">
+                    <label for="k10-4">4: ausreichend</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k10-5" name="k10" value="5">
+                    <label for="k10-5">5: mangelhaft</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="k10-0" name="k10" value="0">
+                    <label for="k10-0">keine Angabe</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Abschicken-Button -->
+        <button type="submit">Abschicken</button>
+
+
+
+    </form>
+
+
+</body>
+</html>
