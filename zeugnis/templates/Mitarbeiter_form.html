@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitarbeiter Formular</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Hintergrundfarbe */
+        }
+        h1 {
+            text-align: center;
+            color: #333; /* Überschriftfarbe */
+            font-size: 24px; /* Schriftgröße der Überschrift */
+            margin-bottom: 80px; /* Abstand unter der Überschrift */
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px; /* Schrift der Labels */
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px; /* Schriftgröße des Buttons */
+            cursor: pointer;
+            background-color: #0976f2; /* Hintergrundfarbe des Buttons */
+            color: white; /* Schriftfarbe des Buttons */
+            border: none;
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049; /* Button Hover-Effekt */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mitarbeiter Formular</h1>
+
+    <div class="form-container">
+        <form method="post" action="/mitarbeiter/erstellen">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="vorname">Vorname:</label>
+                <input type="text" id="vorname" name="vorname" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Nachname:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <button type="submit">Speichern</button>
+        </form>
+    </div>
+
+</body>
+</html>

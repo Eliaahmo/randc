@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zugriff Verboten</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Hintergrundfarbe */
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #d9534f; /* Überschriftfarbe */
+            font-size: 24px; /* Schriftgröße der Überschrift */
+            margin-bottom: 20px; /* Abstand unter der Überschrift */
+        }
+        p {
+            font-size: 18px; /* Schriftgröße des Textes */
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px; /* Schriftgröße des Links */
+            background-color: #0976f2; /* Hintergrundfarbe des Links */
+            color: white; /* Schriftfarbe des Links */
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #45a049; /* Link Hover-Effekt */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Zugriff Verboten</h1>
+        <p>Sie haben keine Berechtigung, diese Seite zu sehen.</p>
+        <a href="{% url 'home' %}">Zurück zur Startseite</a> <!-- Ersetze 'home' mit dem Namen deiner Startseiten-URL -->
+    </div>
+</body>
+</html>
