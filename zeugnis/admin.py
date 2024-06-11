@@ -1,6 +1,8 @@
 from django.contrib import admin
+from .models import mitarbeiter
 
+class MitarbeiterAdmin(admin.ModelAdmin):
+    list_display = ('vorname', 'name', 'initial')  
 
-
-# Register your models here.
+admin.site.register(mitarbeiter, MitarbeiterAdmin)
 

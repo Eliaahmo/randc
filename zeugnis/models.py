@@ -15,7 +15,9 @@ class mitarbeiter(models.Model):
     vorname = models.CharField(max_length=200, default = "leer")
     name = models.CharField(max_length= 200, default = "leer")
     initial = models.CharField(max_length= 200, default = "leer")
+    class Meta:
+        verbose_name_plural = "mitarbeiter"
 
-    
+
 
 
