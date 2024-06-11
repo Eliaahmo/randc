@@ -5,7 +5,6 @@ from .models import feedbackItem, mitarbeiter
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 from .forms import MitarbeiterForm
-from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -50,20 +49,9 @@ def zeugnis2(request):
 def danke(request):
     return render(request, 'danke.html')
 
-def mitarbeiter_erstellen(request):
-    if request.method == 'POST':
-        vorname = request.POST.get('vorname')
-        name = request.POST.get('name')
-        neuer_mitarbeiter = mitarbeiter.objects.create(
-            vorname=vorname, name=name
-            )
-        neuer_mitarbeiter.save()
-        print("Mitarbeiter hinzugefügt")
-    return render(request, 'mitarbeiter_form.html')  # Das Formular anzeigen
-
 
 @login_required
-def mitarbeiter_erstellen2(request):
+def mitarbeiter_erstellen(request):
     if not request.user.is_superuser:
         return render(request, '403.html')  # Render die benutzerdefinierte Fehlerseite
     
@@ -71,7 +59,7 @@ def mitarbeiter_erstellen2(request):
         form = MitarbeiterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('mitarbieter_form.html')  # Ersetze 'success_page' durch den Namen deiner Erfolgsseite
+            return redirect('mitarbeiter_erstellen')  # Ersetze 'success_page' durch den Namen deiner Erfolgsseite
     else:
         form = MitarbeiterForm()
     

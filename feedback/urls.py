@@ -20,8 +20,7 @@ from zeugnis.views import zeugnis
 from zeugnis.views import login, danke
 from zeugnis.views import bewertung_view
 from zeugnis.views import zeugnis2
-from zeugnis.views import mitarbeiter_erstellen, mitarbeiter_erstellen2
-
+from zeugnis.views import mitarbeiter_erstellen
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("zeugnis/", zeugnis),
@@ -29,7 +28,8 @@ urlpatterns = [
     path("bewertung/" ,bewertung_view),
     path("zeugnis2/", zeugnis2),
     path("danke/", danke, name='danke'),
-    path("mitarbeiter/", mitarbeiter_erstellen),
-    path("mitarbeiter/erstellen", mitarbeiter_erstellen2),
+    path("mitarbeiter/", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
+    path("mitarbeiter/erstellen", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
+
     
 ]

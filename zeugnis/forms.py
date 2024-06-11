@@ -4,4 +4,4 @@ from .models import mitarbeiter
 class MitarbeiterForm(forms.ModelForm):
     class Meta:
         model = mitarbeiter
-        fields = ['vorname', 'name']
+        fields = ['vorname', 'name','initial']
