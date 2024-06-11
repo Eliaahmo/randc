@@ -9,7 +9,7 @@ class feedbackItem(models.Model):
     grading = models.SmallIntegerField(default = 0)
 
     def __str__(self):
-        return f'{self.category} - {self.grade} für {self.person}'
+        return f'{self.category} - {self.grading} für {self.person}'
 
 class mitarbeiter(models.Model):
     vorname = models.CharField(max_length=200, default = "leer")
