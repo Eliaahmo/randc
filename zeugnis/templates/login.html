@@ -56,6 +56,17 @@
         button:hover {
             background-color: #45a049; /* Button Hover-Effekt */
         }
+        .admin-link {
+            text-align: center;
+            margin-top: 20px;
+        }       
+        .admin-link a {
+            color: #0976f2;
+            text-decoration: none;
+        }
+        .admin-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -72,8 +83,12 @@
                 <label for="password">Passwort:</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
             <button type="submit">Einloggen</button>
         </form>
+        <div class="admin-link">
+            <p><a href="/admin/">Admin-Login</a></p>
+        </div>
     </div>
 
 </body>

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import mitarbeiter
 from .models import feedbackItem
+from .models import feedbackGeber
 
 
 class MitarbeiterAdmin(admin.ModelAdmin):
@@ -18,3 +19,7 @@ class FeedbackItemAdmin(admin.ModelAdmin):
         return False  # Das Löschen von Einträgen verhindern
 
 admin.site.register(feedbackItem, FeedbackItemAdmin)
+
+class FeedbackGeberAdmin(admin.ModelAdmin):
+    list_display = ('benutzername', 'passwort','angemeldet')
+admin.site.register(feedbackGeber, FeedbackGeberAdmin)

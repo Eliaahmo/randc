@@ -10,6 +10,8 @@ class feedbackItem(models.Model):
 
     def __str__(self):
         return f'{self.category} - {self.grading} für {self.person}'
+    class Meta:
+        verbose_name_plural = "Feedback Rückmeldungen"
 
 class mitarbeiter(models.Model):
     vorname = models.CharField(max_length=200, default = "leer")
@@ -18,6 +20,11 @@ class mitarbeiter(models.Model):
     class Meta:
         verbose_name_plural = "mitarbeiter"
 
-
+class feedbackGeber(models.Model):
+    benutzername = models.CharField(max_length=200)
+    passwort = models.CharField(max_length=200)
+    angemeldet = models.BooleanField(default=False) 
+    class Meta:
+        verbose_name_plural = "feedbackgeber"
 
 
