@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.hashers import make_password, check_password
+
 
 # Create your models here.
 class feedbackItem(models.Model):
@@ -20,11 +22,17 @@ class mitarbeiter(models.Model):
     class Meta:
         verbose_name_plural = "mitarbeiter"
 
+
 class feedbackGeber(models.Model):
-    benutzername = models.CharField(max_length=200)
-    passwort = models.CharField(max_length=200)
-    angemeldet = models.BooleanField(default=False) 
+    benutzername = models.CharField(max_length=200, unique=True)
+    password = models.CharField(max_length=200)
+    angemeldet = models.BooleanField(default=False)
+
     class Meta:
         verbose_name_plural = "feedbackgeber"
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 

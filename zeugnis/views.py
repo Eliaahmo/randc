@@ -6,10 +6,10 @@ from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 from .forms import MitarbeiterForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate
-from django.contrib.auth import views as auth_views
-
-
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
+from .models import feedbackGeber
+from django.contrib.auth.hashers import check_password
 
 def login(request):
     return render(request, 'login.html')
@@ -65,18 +65,25 @@ def mitarbeiter_erstellen(request):
         form = MitarbeiterForm()
     
     return render(request, 'mitarbeiter_form.html', {'form': form})
+  
 
-
-def user_login(request):
-    if request.method == "POST":
-        username = request.POST['username']
+def login_view(request):
+    if request.method == 'POST':
+        benutzername = request.POST['benutzername']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/zeugnis2')  # Nach dem Login weiterleiten
+        try:
+            user = feedbackGeber.objects.get(benutzername=benutzername)
+        except feedbackGeber.DoesNotExist:
+            return HttpResponse("Ungültige Anmeldedaten.")
+
+        if check_password(password, user.password):
+            if user.angemeldet:
+                return HttpResponse("Diese Anmeldedaten wurde bereits genutzt und sind daher nicht mehr gültig.")
+            else:
+                user.angemeldet = True
+                user.save()
+                return redirect('/zeugnis2/')
         else:
-            return render(request, 'login.html', {'error': 'Ungültiger Benutzername oder Passwort'})
+            return HttpResponse("Ungültige Anmeldedaten.")
     else:
         return render(request, 'login.html')
-    
