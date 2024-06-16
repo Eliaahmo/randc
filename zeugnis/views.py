@@ -11,11 +11,14 @@ from django.http import HttpResponse
 from .models import feedbackGeber
 from django.contrib.auth.hashers import check_password
 import re
+from django.db import IntegrityError, transaction
+from django.contrib import messages
 
 def login(request):
     return render(request, 'login.html')
 
 @csrf_exempt
+@login_required
 def bewertung_view(request):
     if request.method == 'POST':
         person = request.session.get('vorname', 'leer')  # Der bewertete Vorgesetzte
@@ -30,7 +33,7 @@ def bewertung_view(request):
                     feedbackItem.objects.create(
                         created_at=timezone.now().date(),
                         person=person,
-                        category = category,
+                        category=category,
                         grading=int(grade)
                     )
                 except IntegrityError as e:
@@ -40,16 +43,11 @@ def bewertung_view(request):
             return redirect('danke')  # Weiterleitung zur Dankeseite
         else:
             return render(request, 'zeugnis.html', {'error': 'Es gab einen Fehler beim Speichern der Bewertungen.'})
-            
-    return render(request, 'zeugnis.html')  # Dein bestehendes HTML-Formular
 
-#@login_required
-#def zeugnis2(request):
- #   return render(request, 'zeugnis2.html')
+    return render(request, 'zeugnis.html')  # Dein bestehendes HTML-Formular
 
 def danke(request):
     return render(request, 'danke.html')
-
 
 @login_required
 def mitarbeiter_erstellen(request):
@@ -64,30 +62,8 @@ def mitarbeiter_erstellen(request):
     else:
         form = MitarbeiterForm()
     
-    return render(request, 'mitarbeiter_form.html', {'form': form})
+    return render(request,'mitarbeiter_form.html', {'form': form})
   
-  
-  #def login_view(request):
-   # if request.method == 'POST':
-   #     benutzername = request.POST['benutzername']
-   #     password = request.POST['password']
-   #     try:
-   #         user = feedbackGeber.objects.get(benutzername=benutzername)
-   #     except feedbackGeber.DoesNotExist:
-   #         return HttpResponse("Ungültige Anmeldedaten.")
-#
-   #     if check_password(password, user.password):
-   #         if user.angemeldet:
-    #            return HttpResponse("Diese Anmeldedaten wurde bereits genutzt und sind daher nicht mehr gültig.")
-  #          else:
-   #             user.angemeldet = True
-   #             user.save()
-  #              return redirect('/zeugnis2/')
-   #     else:
-  ##          return HttpResponse("Ungültige Anmeldedaten.")
-  #  else:
-#        return render(request, 'login.html')
-
 def extract_initials(username):
     return ''.join(re.findall('[A-Za-z]', username))
 

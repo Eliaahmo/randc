@@ -22,8 +22,6 @@ from zeugnis.views import mitarbeiter_erstellen
 from zeugnis.views import login_view
 from zeugnis.views import zeugnis
 
-
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", login_view),
@@ -33,5 +31,4 @@ urlpatterns = [
     path("mitarbeiter/erstellen", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
     path("zeugnis/", zeugnis),
 
-    
 ]

@@ -29,6 +29,7 @@ class feedbackGeber(models.Model):
     benutzername = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     angemeldet = models.BooleanField(default=False)
+    bewertet = models.BooleanField(default = False)
 
     class Meta:
         verbose_name_plural = "feedbackgeber"
