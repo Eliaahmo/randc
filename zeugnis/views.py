@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .models import feedbackGeber
 from django.contrib.auth.hashers import check_password
+import re
 
 def login(request):
     return render(request, 'login.html')
@@ -17,7 +18,7 @@ def login(request):
 @csrf_exempt
 def bewertung_view(request):
     if request.method == 'POST':
-        person = "leer"  # Der bewertete Vorgesetzte
+        person = request.session.get('vorname', 'leer')  # Der bewertete Vorgesetzte
         success = True
         for i in range(1, 11):
             category = f'Kategorie {i}'
@@ -36,16 +37,15 @@ def bewertung_view(request):
                     print(f'Error saving category{i}: {e}')
                     success = False
         if success:
-
             return redirect('danke')  # Weiterleitung zur Dankeseite
         else:
-            return render(request, 'zeugnis2.html', {'error': 'Es gab einen Fehler beim Speichern der Bewertungen.'})
+            return render(request, 'zeugnis.html', {'error': 'Es gab einen Fehler beim Speichern der Bewertungen.'})
             
-    return render(request, 'zeugnis2.html')  # Dein bestehendes HTML-Formular
+    return render(request, 'zeugnis.html')  # Dein bestehendes HTML-Formular
 
-@login_required
-def zeugnis2(request):
-    return render(request, 'zeugnis2.html')
+#@login_required
+#def zeugnis2(request):
+ #   return render(request, 'zeugnis2.html')
 
 def danke(request):
     return render(request, 'danke.html')
@@ -66,24 +66,70 @@ def mitarbeiter_erstellen(request):
     
     return render(request, 'mitarbeiter_form.html', {'form': form})
   
+  
+  #def login_view(request):
+   # if request.method == 'POST':
+   #     benutzername = request.POST['benutzername']
+   #     password = request.POST['password']
+   #     try:
+   #         user = feedbackGeber.objects.get(benutzername=benutzername)
+   #     except feedbackGeber.DoesNotExist:
+   #         return HttpResponse("Ungültige Anmeldedaten.")
+#
+   #     if check_password(password, user.password):
+   #         if user.angemeldet:
+    #            return HttpResponse("Diese Anmeldedaten wurde bereits genutzt und sind daher nicht mehr gültig.")
+  #          else:
+   #             user.angemeldet = True
+   #             user.save()
+  #              return redirect('/zeugnis2/')
+   #     else:
+  ##          return HttpResponse("Ungültige Anmeldedaten.")
+  #  else:
+#        return render(request, 'login.html')
+
+def extract_initials(username):
+    return ''.join(re.findall('[A-Za-z]', username))
+
+@login_required
+def zeugnis(request):
+    return render(request, 'zeugnis.html')
+
 
 def login_view(request):
     if request.method == 'POST':
         benutzername = request.POST['benutzername']
         password = request.POST['password']
+
+        print(f"Benutzername: {benutzername}, Passwort: {password}")  # Debug-Ausgabe
+
         try:
             user = feedbackGeber.objects.get(benutzername=benutzername)
         except feedbackGeber.DoesNotExist:
-            return HttpResponse("Ungültige Anmeldedaten.")
+            return HttpResponse("Ungültige Anmeldedaten1.")
 
         if check_password(password, user.password):
             if user.angemeldet:
-                return HttpResponse("Diese Anmeldedaten wurde bereits genutzt und sind daher nicht mehr gültig.")
+                return HttpResponse("Diese Anmeldedaten wurden bereits genutzt und sind daher nicht mehr gültig.")
             else:
                 user.angemeldet = True
                 user.save()
-                return redirect('/zeugnis2/')
+
+                # Initialen extrahieren und Mitarbeiter suchen
+                initials = extract_initials(benutzername)
+                try:
+                    mitarbeiter_obj = mitarbeiter.objects.get(initial=initials)  # Variable umbenennen, um Verwirrung zu vermeiden
+                    vorname = mitarbeiter_obj.vorname
+                except mitarbeiter.DoesNotExist:
+                    vorname = "Person1"  # Standardwert, falls kein Mitarbeiter gefunden wurde
+                
+                # Speichern Sie den Vornamen in der Session
+                request.session['vorname'] = vorname
+
+                # Render die Bewertungsseite und übergib den Vornamen
+                return render(request, 'zeugnis.html', {'vorname': vorname})
         else:
-            return HttpResponse("Ungültige Anmeldedaten.")
+            print("Passwort stimmt nicht überein")  # Debug-Ausgabe
+            return HttpResponse("Ungültige Anmeldedaten2.")
     else:
         return render(request, 'login.html')

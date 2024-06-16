@@ -18,9 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from zeugnis.views import login, danke
 from zeugnis.views import bewertung_view
-from zeugnis.views import zeugnis2
 from zeugnis.views import mitarbeiter_erstellen
 from zeugnis.views import login_view
+from zeugnis.views import zeugnis
 
 
 
@@ -28,11 +28,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", login_view),
     path("bewertung/" ,bewertung_view),
-    path("zeugnis2/", zeugnis2),
     path("danke/", danke, name='danke'),
     path("mitarbeiter/", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
     path("mitarbeiter/erstellen", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
-    
+    path("zeugnis/", zeugnis),
 
     
 ]

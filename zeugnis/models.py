@@ -21,6 +21,8 @@ class mitarbeiter(models.Model):
     initial = models.CharField(max_length= 200, default = "leer")
     class Meta:
         verbose_name_plural = "mitarbeiter"
+    def __str__(self):
+        return self.vorname
 
 
 class feedbackGeber(models.Model):
