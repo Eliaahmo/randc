@@ -6,10 +6,10 @@ from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 from .forms import MitarbeiterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
+from django.contrib.auth import views as auth_views
 
-# Create your views here.
-def zeugnis(request):
-    return render(request, 'zeugnis.html')
+
 
 def login(request):
     return render(request, 'login.html')
@@ -43,6 +43,7 @@ def bewertung_view(request):
             
     return render(request, 'zeugnis2.html')  # Dein bestehendes HTML-Formular
 
+@login_required
 def zeugnis2(request):
     return render(request, 'zeugnis2.html')
 
@@ -64,3 +65,18 @@ def mitarbeiter_erstellen(request):
         form = MitarbeiterForm()
     
     return render(request, 'mitarbeiter_form.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/zeugnis2')  # Nach dem Login weiterleiten
+        else:
+            return render(request, 'login.html', {'error': 'Ungültiger Benutzername oder Passwort'})
+    else:
+        return render(request, 'login.html')
+    
