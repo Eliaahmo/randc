@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from zeugnis.views import login, danke
+from zeugnis.views import login_view, danke
 from zeugnis.views import bewertung_view
 from zeugnis.views import mitarbeiter_erstellen
 from zeugnis.views import login_view
