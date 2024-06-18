@@ -40,6 +40,7 @@ def bewertung_view(request):
                     print(f'Error saving category{i}: {e}')
                     success = False
         if success:
+
             return redirect('danke')  # Weiterleitung zur Dankeseite
         else:
             return render(request, 'zeugnis.html', {'error': 'Es gab einen Fehler beim Speichern der Bewertungen.'})

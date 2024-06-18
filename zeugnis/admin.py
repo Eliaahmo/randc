@@ -21,5 +21,5 @@ class FeedbackItemAdmin(admin.ModelAdmin):
 admin.site.register(feedbackItem, FeedbackItemAdmin)
 
 class FeedbackGeberAdmin(admin.ModelAdmin):
-    list_display = ('benutzername', 'password','angemeldet')
+    list_display = ('benutzername', 'password','angemeldet', 'bewertet')
 admin.site.register(feedbackGeber, FeedbackGeberAdmin)

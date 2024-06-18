@@ -24,7 +24,7 @@ from zeugnis.views import zeugnis
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login/", login_view),
+    path("login/", login_view, name='login'),
     path("bewertung/" ,bewertung_view),
     path("danke/", danke, name='danke'),
     path("mitarbeiter/", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
