@@ -1,4 +1,4 @@
-from django.shortcuts import render
+'''from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from .models import feedbackItem, mitarbeiter
@@ -11,7 +11,8 @@ from django.http import HttpResponse
 from .models import feedbackGeber
 from django.contrib.auth.hashers import check_password
 import re
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
+from django.contrib import messages
 
 def login(request):
     return render(request, 'login.html')
@@ -26,16 +27,14 @@ def bewertung_view(request):
             category = f'Kategorie {i}'
             print(category)
             grade = request.POST.get(f'k{i}')
-            comment = request.POST.get(f'k{i}_comment')
-            print(grade, comment)
+            print(grade)
             if grade:
                 try:
                     feedbackItem.objects.create(
                         created_at=timezone.now().date(),
                         person=person,
                         category=category,
-                        grading=int(grade),
-                        comment = comment
+                        grading=int(grade)
                     )
                 except IntegrityError as e:
                     print(f'Error saving category{i}: {e}')
@@ -110,4 +109,4 @@ def login_view(request):
             print("Passwort stimmt nicht überein")  # Debug-Ausgabe
             return HttpResponse("Ungültige Anmeldedaten2.")
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html')'''
