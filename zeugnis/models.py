@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
@@ -28,7 +29,7 @@ class mitarbeiter(models.Model):
         return self.vorname
 
 
-class feedbackGeber(models.Model):
+'''class feedbackGeber(models.Model):
     benutzername = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     angemeldet = models.BooleanField(default=False)
@@ -41,4 +42,12 @@ class feedbackGeber(models.Model):
         if not self.pk:
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
+'''
+class feedbackGeber(AbstractUser):
+    angemeldet = models.BooleanField(default=False)
+    bewertet = models.BooleanField(default=False)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
