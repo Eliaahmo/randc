@@ -100,6 +100,17 @@
             height: 100px; 
             resize: vertical; 
         }
+        .logout-link {
+            text-align: right;
+            margin-top: 20px;
+        }       
+        .logout-link a {
+            color: #0976f2;
+            text-decoration: none;
+        }
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
 
     </style>
     <script>
@@ -470,7 +481,7 @@
                     </div>
                     <div class="option">
                         <input type="radio" id="k9-2" name="k9" value="2">
-                        <label for="k9-2">2: gut</label>
+                        <label for="k9-2">2: Trifft überwiegend zu</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="k9-3" name="k9" value="3">
@@ -538,7 +549,9 @@
             </div>
             <button id="submit-btn" type="submit" disabled>Absenden</button>
         </form>
-        <button id="logout-btn" onclick="logout()">Feedback später abgeben</button>
+        <div class="logout-link">
+            <a href="#" onclick="logout()">Feedback später abgeben</a>
+        </div>
     </div>
 </body>
 </html>

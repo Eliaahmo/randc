@@ -42,7 +42,10 @@ def bewertung_view(request):
                     print(f'Error saving category{i}: {e}')
                     success = False
         if success:
-
+            # Setzen Sie das 'bewertet'-Attribut des aktuellen Benutzers auf True
+            current_user = feedbackGeber.objects.get(username=request.user.username)
+            current_user.bewertet = True
+            current_user.save()
             return redirect('danke')  # Weiterleitung zur Dankeseite
         else:
             return render(request, 'zeugnis.html', {'error': 'Es gab einen Fehler beim Speichern der Bewertungen.'})
@@ -142,7 +145,7 @@ def custom_login_view(request):
                 try:
                     feedbackgeber = feedbackGeber.objects.get(username=user.username)
                     if feedbackgeber.angemeldet and feedbackgeber.bewertet:
-                        return HttpResponse("Sie haben bereits Feedback abgegeben und können sich nicht erneut anmelden.")
+                        return render(request, '404.html')
                     elif feedbackgeber.angemeldet and not feedbackgeber.bewertet:
                         # Benutzer hat sich bereits angemeldet, aber noch keine Bewertung abgegeben
                         return render(request, 'zeugnis.html', {'vorname': vorname})
@@ -159,7 +162,7 @@ def custom_login_view(request):
             else:
                 return HttpResponse("Ihr Account ist nicht aktiv.")
         else:
-            return HttpResponse("Ungültige Anmeldedaten.")
+            return render(request, '403.html')
 
     return render(request, 'login.html')
 
