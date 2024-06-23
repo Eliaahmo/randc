@@ -75,7 +75,7 @@ def zeugnis(request):
     return render(request, 'zeugnis.html')
 
 
-def custom_login_view(request):
+'''def custom_login_view(request):
     if request.method == 'POST':
         benutzername = request.POST['benutzername']
         password = request.POST['password']
@@ -107,3 +107,62 @@ def custom_login_view(request):
             return HttpResponse("Ungültige Anmeldedaten.")
 
     return render(request, 'login.html')
+
+    '''
+
+def custom_login_view(request):
+    if request.method == 'POST':
+        benutzername = request.POST['benutzername']
+        password = request.POST['password']
+
+        print(f"Benutzername: {benutzername}, Passwort: {password}")  # Debug-Ausgabe
+
+        # Benutzer authentifizieren
+        user = authenticate(username=benutzername, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)  # Verwende auth_login anstelle von login
+
+                # Überprüfen, ob der Benutzer Superuser/Administrator ist
+                if user.is_superuser:
+                    return handle_login_success(request, user)
+
+                # Initialen extrahieren und Mitarbeiter suchen
+                initials = extract_initials(benutzername)
+                try:
+                    mitarbeiter_obj = mitarbeiter.objects.get(initial=initials)
+                    vorname = mitarbeiter_obj.vorname
+                except mitarbeiter.DoesNotExist:
+                    vorname = "Person1"  # Standardwert, falls kein Mitarbeiter gefunden wurde
+
+                # Speichern Sie den Vornamen in der Session
+                request.session['vorname'] = vorname
+
+                # Überprüfen, ob der Benutzer bereits angemeldet und bewertet hat
+                try:
+                    feedbackgeber = feedbackGeber.objects.get(username=user.username)
+                    if feedbackgeber.angemeldet and feedbackgeber.bewertet:
+                        return HttpResponse("Sie haben bereits Feedback abgegeben und können sich nicht erneut anmelden.")
+                    elif feedbackgeber.angemeldet and not feedbackgeber.bewertet:
+                        # Benutzer hat sich bereits angemeldet, aber noch keine Bewertung abgegeben
+                        return render(request, 'zeugnis.html', {'vorname': vorname})
+                    else:
+                        # Benutzer hat sich noch nicht angemeldet
+                        feedbackgeber.angemeldet = True
+                        feedbackgeber.save()
+                except feedbackGeber.DoesNotExist:
+                    # Neuer Benutzer, der sich zum ersten Mal anmeldet
+                    feedbackGeber.objects.create(username=user.username, angemeldet=True)
+
+                # Render die Bewertungsseite und übergib den Vornamen
+                return render(request, 'zeugnis.html', {'vorname': vorname})
+            else:
+                return HttpResponse("Ihr Account ist nicht aktiv.")
+        else:
+            return HttpResponse("Ungültige Anmeldedaten.")
+
+    return render(request, 'login.html')
+
+def handle_login_success(request, user):
+    # Render hier die Seite nach dem erfolgreichen Login
+    return render(request, 'zeugnis.html', {'user': user})

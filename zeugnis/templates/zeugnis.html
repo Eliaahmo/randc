@@ -143,6 +143,12 @@
             }
             validateForm();
         }
+        function logout() {
+            // Implementiere hier den Logout-Prozess, z.B. eine AJAX-Anfrage
+            console.log("Logout wird durchgeführt...");
+            // Beispiel: Weiterleitung zur Login-Seite
+            window.location.href = "/login";
+        }
     </script>
 </head>
 <body>
@@ -532,6 +538,7 @@
             </div>
             <button id="submit-btn" type="submit" disabled>Absenden</button>
         </form>
+        <button id="logout-btn" onclick="logout()">Feedback später abgeben</button>
     </div>
 </body>
 </html>
