@@ -1,0 +1,90 @@
+{% load custom_tags %}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Übersicht der Feedbacks</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f4f4; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    h1, h2 { text-align: center; margin-bottom: 20px; }
+    form { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    select, button { padding: 8px; font-size: 16px; border: 1px solid #ddd; border-radius: 4px; width: 100%; box-sizing: border-box; }
+    button { background-color: #4CAF50; color: white; cursor: pointer; transition: background-color 0.3s ease; }
+    button:hover { background-color: #45a049; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .stars { display: inline-block; }
+    .star { font-size: 20px; color: #ccc; cursor: pointer; }
+    .star.filled { color: orange; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Übersicht der Feedbacks</h1>
+
+    <form method="GET">
+      <label for="person_select">Feedbacks anzeigen von:</label>
+      <select name="person" id="person_select">
+        <option value="">Alle Personen</option>
+        {% for person in persons %}
+        <option value="{{ person }}">{{ person }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Filtern</button>
+      <a href="/admin/" target="_blank">Zur Admin-Seite</a>
+    </form>
+
+    {% if category_avg_grades %}
+    <h2>Durchschnittliches Grading pro Kategorie:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Kategorie</th>
+          <th>Durchschnittliches Grading</th>
+          <th>Sterne</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category, avg_grade in category_avg_grades.items %}
+        <tr>
+          <td>{{ category }}</td>
+          <td>{{ avg_grade|floatformat:"2" }}</td>
+          <td>
+            <div class="stars" data-category="{{ category }}">
+              {% for i in 5|custom_range %}
+                {% if i <= avg_grade|to_stars %}
+                  <span class="star filled">&#9733;</span>
+                {% else %}
+                  <span class="star">&#9733;</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td><strong>Gesamt</strong></td>
+          <td><strong>{{ total_avg_grade|floatformat:"2" }}</strong></td>
+          <td>
+            <div class="stars" data-category="Gesamt">
+              {% for i in 5|custom_range %}
+                {% if i <= total_avg_grade|to_stars %}
+                  <span class="star filled">&#9733;</span>
+                {% else %}
+                  <span class="star">&#9733;</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</body>
+</html>

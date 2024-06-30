@@ -20,6 +20,7 @@ from zeugnis.views import custom_login_view, danke
 from zeugnis.views import bewertung_view
 from zeugnis.views import mitarbeiter_erstellen
 from zeugnis.views import zeugnis
+from zeugnis.views import feedback_overview
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -29,5 +30,6 @@ urlpatterns = [
     path("mitarbeiter/", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
     path("mitarbeiter/erstellen", mitarbeiter_erstellen, name='mitarbeiter_erstellen'),
     path("zeugnis/", zeugnis),
+    path('feedback-overview/', feedback_overview, name='feedback_overview'),
 
 ]

@@ -5,7 +5,7 @@ from .models import feedbackItem, mitarbeiter
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 from .forms import MitarbeiterForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .models import feedbackGeber
@@ -13,6 +13,42 @@ from django.contrib.auth.hashers import check_password
 import re
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login as auth_login
+import pandas as pd
+from .utils import get_cleaned_feedback_data
+from django.db.models import Avg
+
+# Überprüfen, ob der Benutzer ein Administrator ist
+def admin_check(user):
+    return user.is_superuser
+
+@login_required
+@user_passes_test(admin_check)
+def feedback_overview(request):
+    persons = feedbackItem.objects.values_list('person', flat=True).distinct()
+
+    person_filter = request.GET.get('person')
+    if person_filter:
+        filtered_feedback_data = feedbackItem.objects.filter(person=person_filter)
+    else:
+        filtered_feedback_data = feedbackItem.objects.all()
+
+    categories = filtered_feedback_data.values_list('category', flat=True).distinct()
+    category_avg_grades = {}
+    for category in categories:
+        avg_grade = filtered_feedback_data.filter(category=category).aggregate(avg_grade=Avg('grading'))['avg_grade']
+        category_avg_grades[category] = avg_grade if avg_grade is not None else 0.0
+
+    total_avg_grade = filtered_feedback_data.aggregate(avg_grade=Avg('grading'))['avg_grade']
+
+    context = {
+        'persons': persons,
+        'filtered_feedback_data': filtered_feedback_data,
+        'category_avg_grades': category_avg_grades,
+        'total_avg_grade': total_avg_grade if total_avg_grade is not None else 0.0,
+    }
+
+    return render(request, 'feedback_overview.html', context)
+
 
 def login(request):
     return render(request, 'login.html')
@@ -77,41 +113,6 @@ def extract_initials(username):
 def zeugnis(request):
     return render(request, 'zeugnis.html')
 
-
-'''def custom_login_view(request):
-    if request.method == 'POST':
-        benutzername = request.POST['benutzername']
-        password = request.POST['password']
-
-        print(f"Benutzername: {benutzername}, Passwort: {password}")  # Debug-Ausgabe
-
-        # Benutzer authentifizieren
-        user = authenticate(username=benutzername, password=password)
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)  # Verwende auth_login anstelle von login
-
-                # Initialen extrahieren und Mitarbeiter suchen
-                initials = extract_initials(benutzername)
-                try:
-                    mitarbeiter_obj = mitarbeiter.objects.get(initial=initials)
-                    vorname = mitarbeiter_obj.vorname
-                except mitarbeiter.DoesNotExist:
-                    vorname = "Person1"  # Standardwert, falls kein Mitarbeiter gefunden wurde
-
-                # Speichern Sie den Vornamen in der Session
-                request.session['vorname'] = vorname
-
-                # Render die Bewertungsseite und übergib den Vornamen
-                return render(request, 'zeugnis.html', {'vorname': vorname})
-            else:
-                return HttpResponse("Ihr Account ist nicht aktiv.")
-        else:
-            return HttpResponse("Ungültige Anmeldedaten.")
-
-    return render(request, 'login.html')
-
-    '''
 
 def custom_login_view(request):
     if request.method == 'POST':
