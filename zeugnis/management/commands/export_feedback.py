@@ -22,4 +22,3 @@ class Command(BaseCommand):
                 writer.writerow([item.id, item.created_at, item.person, item.category, item.grading, item.comment])
 
         self.stdout.write(self.style.SUCCESS(f'Successfully exported feedback items to {file_path}'))
-'''dsfad'''

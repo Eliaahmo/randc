@@ -131,3 +131,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = 'login'
 
 AUTH_USER_MODEL = 'zeugnis.feedbackGeber'
+
+LOGOUT_REDIRECT_URL = '/login/'
