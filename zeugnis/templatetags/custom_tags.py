@@ -2,13 +2,18 @@ from django import template
 import math
 
 register = template.Library()
-'''
-@register.filter(name='custom_range')
-def custom_range(value):
-    if value is None:
-        return []
-    return range(1, int(value) + 1)
 
+@register.filter(name='custom_range')
+def custom_range(value, arg=None):
+    if arg is None:
+        start, end = 1, value
+    else:
+        start, end = value, arg
+    return range(start, end + 1)
+
+@register.filter(name='add')
+def add(value, arg):
+    return value + arg
 
 @register.filter(name='to_stars')
 def to_stars(avg_grade):
@@ -50,3 +55,5 @@ def to_stars(avg_grade):
 @register.filter(name='add')
 def add(value, arg):
     return value + arg
+
+'''

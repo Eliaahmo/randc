@@ -29,7 +29,10 @@
     <h1>Übersicht der Feedbacks</h1>
 
     <form method="GET">
-      <label for="person_select">Feedbacks anzeigen von:</label>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <label for="person_select">Feedbacks anzeigen von:</label>
+        <a href="/admin/" target="_blank">Zur Admin-Seite</a>
+      </div>
       <select name="person" id="person_select">
         <option value="">Alle Personen</option>
         {% for person in persons %}
@@ -37,7 +40,6 @@
         {% endfor %}
       </select>
       <button type="submit">Filtern</button>
-      <a href="/admin/" target="_blank">Zur Admin-Seite</a>
     </form>
 
     {% if category_avg_grades %}

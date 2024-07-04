@@ -1,0 +1,123 @@
+/* custom_admin.css */
+body {
+    background: #f5f5f5;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.header {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 10px 20px;
+    border-bottom: 2px solid #34495e;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #ecf0f1;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #34495e;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+fieldset.module, .inline-group {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.module th, .module td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 10px;
+}
+
+.module th {
+    background: #ecf0f1;
+    font-weight: bold;
+}
+
+.module td a {
+    color: #3498db;
+}
+
+.module td a:hover {
+    text-decoration: underline;
+}
+
+button, input[type="submit"], input[type="button"] {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background: #2980b9;
+}
+
+button:focus, input[type="submit"]:focus, input[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0 3px #3498db;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background: #ecf0f1;
+    text-align: left;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+table tr:hover {
+    background: #f1f1f1;
+}
+
+.sidebar {
+    background: #34495e;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    color: #ecf0f1;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 2px solid #34495e;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
