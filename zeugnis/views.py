@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login as auth_login
 import pandas as pd
 from .utils import get_cleaned_feedback_data
 from django.db.models import Avg
+import math
 
 # Überprüfen, ob der Benutzer ein Administrator ist
 def admin_check(user):
@@ -45,6 +46,7 @@ def feedback_overview(request):
         'filtered_feedback_data': filtered_feedback_data,
         'category_avg_grades': category_avg_grades,
         'total_avg_grade': total_avg_grade if total_avg_grade is not None else 0.0,
+        'selected_person': person_filter if person_filter else 'Alle'
     }
 
     return render(request, 'feedback_overview.html', context)

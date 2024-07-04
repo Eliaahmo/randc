@@ -1,4 +1,5 @@
 from django import template
+import math
 
 register = template.Library()
 
@@ -22,3 +23,5 @@ def to_stars(avg_grade):
         return 2
     else:
         return 1
+    
+
