@@ -19,8 +19,9 @@
     th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
     th { background-color: #f2f2f2; }
     .stars { display: inline-block; }
-    .star { font-size: 20px; color: #ccc; cursor: pointer; }
+    .star { font-size: 20px; color: #ccc; position: relative; }
     .star.filled { color: orange; }
+    .star.half-filled::before { content: "\2605"; color: orange; position: absolute; width: 50%; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -55,10 +56,12 @@
           <td>{{ category }}</td>
           <td>{{ avg_grade|floatformat:"2" }}</td>
           <td>
-            <div class="stars" data-category="{{ category }}">
-              {% for i in 5|custom_range %}
+            <div class="stars">
+              {% for i in 1|custom_range:5 %}
                 {% if i <= avg_grade|to_stars %}
                   <span class="star filled">&#9733;</span>
+                {% elif i == avg_grade|to_stars|add:0.5 %}
+                  <span class="star half-filled">&#9733;</span>
                 {% else %}
                   <span class="star">&#9733;</span>
                 {% endif %}
@@ -71,15 +74,18 @@
           <td><strong>Gesamt</strong></td>
           <td><strong>{{ total_avg_grade|floatformat:"2" }}</strong></td>
           <td>
-            <div class="stars" data-category="Gesamt">
-              {% for i in 5|custom_range %}
-                {% if i <= total_avg_grade|to_stars %}
-                  <span class="star filled">&#9733;</span>
-                {% else %}
-                  <span class="star">&#9733;</span>
-                {% endif %}
-              {% endfor %}
-            </div>
+            <div class="stars">
+              <div class="stars">
+                {% for i in 1|custom_range:5 %}
+                  {% if i <= total_avg_grade|to_stars %}
+                    <span class="star filled">&#9733;</span>
+                  {% elif i == total_avg_grade|to_stars|add:0.5 %}
+                    <span class="star half-filled">&#9733;</span>
+                  {% else %}
+                    <span class="star">&#9733;</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
           </td>
         </tr>
       </tbody>
