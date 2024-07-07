@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Übersicht der Feedbacks</title>
+  <title>Gesamtübersicht aller Feedbacks</title>
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f4f4; margin: 0; padding: 20px; }
     .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
@@ -13,7 +13,7 @@
     form { margin-bottom: 20px; }
     label { display: block; margin-bottom: 8px; font-weight: bold; }
     select, button { padding: 8px; font-size: 16px; border: 1px solid #ddd; border-radius: 4px; width: 100%; box-sizing: border-box; }
-    button { background-color: #4CAF50; color: white; cursor: pointer; transition: background-color 0.3s ease; }
+    button { background-color: #0976f2; color: white; cursor: pointer; transition: background-color 0.3s ease; }
     button:hover { background-color: #45a049; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); }
     th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
@@ -23,6 +23,15 @@
     .star.filled { color: orange; }
     .star.half-filled::before { content: "\2605"; color: orange; position: absolute; width: 50%; overflow: hidden; }
   </style>
+  <script>
+
+  function logout() {
+    console.log("Logout wird durchgeführt...");
+    window.location.href = "/login";
+  }
+  </script>
+
+   
 </head>
 <body>
   <div class="container">
@@ -31,7 +40,7 @@
     <form method="GET">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <label for="person_select">Feedbacks anzeigen von:</label>
-        <a href="/admin/" target="_blank">Zur Admin-Seite</a>
+        <a href="#" onclick="logout()">Ausloggen</a>
       </div>
       <select name="person" id="person_select">
         <option value="">Alle Personen</option>
@@ -43,7 +52,7 @@
     </form>
 
     {% if category_avg_grades %}
-    <h2>Feeback für {{selected_person}}</h2>
+    <h2>Feeback von {{selected_person}}</h2>
     <table>
       <thead>
         <tr>

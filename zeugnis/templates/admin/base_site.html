@@ -28,6 +28,10 @@
 
 {% block footer %}
 <footer>
+    <div class="feedback-module">
+        <a href="{% url 'feedback_overview' %}">{% trans "Zur Feedback-Übersicht" %}</a>
+    </div>
     <p>{% trans "© 2024 Dein Unternehmen" %}</p>
+
 </footer>
 {% endblock %}

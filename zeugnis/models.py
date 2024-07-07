@@ -29,23 +29,10 @@ class mitarbeiter(models.Model):
         return self.vorname
 
 
-'''class feedbackGeber(models.Model):
-    benutzername = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200)
-    angemeldet = models.BooleanField(default=False)
-    bewertet = models.BooleanField(default = False)
-
-    class Meta:
-        verbose_name_plural = "feedbackgeber"
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.password = make_password(self.password)
-        super().save(*args, **kwargs)
-'''
 class feedbackGeber(AbstractUser):
     angemeldet = models.BooleanField(default=False)
     bewertet = models.BooleanField(default=False)
+    partner = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.pk:

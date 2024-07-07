@@ -19,11 +19,11 @@ from django.db.models import Avg
 import math
 
 # Überprüfen, ob der Benutzer ein Administrator ist
-def admin_check(user):
-    return user.is_superuser
+def admin_or_partner_check(user):
+    return user.is_superuser or user.partner
 
 @login_required
-@user_passes_test(admin_check)
+@user_passes_test(admin_or_partner_check)
 def feedback_overview(request):
     persons = feedbackItem.objects.values_list('person', flat=True).distinct()
 
@@ -121,17 +121,20 @@ def custom_login_view(request):
         benutzername = request.POST['benutzername']
         password = request.POST['password']
 
-        print(f"Benutzername: {benutzername}, Passwort: {password}")  # Debug-Ausgabe
-
         # Benutzer authentifizieren
         user = authenticate(username=benutzername, password=password)
         if user is not None:
             if user.is_active:
-                auth_login(request, user)  # Verwende auth_login anstelle von login
+                auth_login(request, user)  
 
-                # Überprüfen, ob der Benutzer Superuser/Administrator ist
-                if user.is_superuser:
-                    return handle_login_success(request, user)
+                # Überprüfen, ob der Benutzer Superuser/Administrator/ Partner ist
+                if user.is_superuser or user.partner:
+                    feedbackgeber = feedbackGeber.objects.get(username=user.username)
+                    if feedbackgeber.angemeldet == False:
+                        feedbackgeber.angemeldet = True
+                        feedbackgeber.save()
+
+                    return redirect('feedback_overview')             
 
                 # Initialen extrahieren und Mitarbeiter suchen
                 initials = extract_initials(benutzername)
@@ -157,8 +160,7 @@ def custom_login_view(request):
                         feedbackgeber.angemeldet = True
                         feedbackgeber.save()
                 except feedbackGeber.DoesNotExist:
-                    # Neuer Benutzer, der sich zum ersten Mal anmeldet
-                    feedbackGeber.objects.create(username=user.username, angemeldet=True)
+                    return render(request, '403.html')
 
                 # Render die Bewertungsseite und übergib den Vornamen
                 return render(request, 'zeugnis.html', {'vorname': vorname})

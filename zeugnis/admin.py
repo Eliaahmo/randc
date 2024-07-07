@@ -11,22 +11,29 @@ AdminSite.index_title = "Willkommen in der Systemverwaltung"
 
 
 class MitarbeiterAdmin(admin.ModelAdmin):
-    list_display = ('vorname', 'name', 'initial')  
+    list_display = ('vorname', 'name', 'initial') 
+    search_fields = ('vorname', 'name', 'initial') 
 
 admin.site.register(mitarbeiter, MitarbeiterAdmin)
 
 class FeedbackItemAdmin(admin.ModelAdmin):
-    #readonly_fields = [field.name for field in feedbackItem._meta.fields]  # Alle Felder als schreibgeschützt markieren
+    readonly_fields = [field.name for field in feedbackItem._meta.fields]  # Alle Felder als schreibgeschützt markieren
 
-    #def has_add_permission(self, request):
-      #  return False  # Das Hinzufügen neuer Einträge verhindern
+    def has_add_permission(self, request):
+        return False  # Das Hinzufügen neuer Einträge verhindern
 
-    #def has_delete_permission(self, request, obj=None):
-     #   return False  # Das Löschen von Einträgen verhindern
+    def has_delete_permission(self, request, obj=None):
+        return False  # Das Löschen von Einträgen verhindern
+    
+    def has_change_permission(self, request, obj=None):
+        return False
+    
     list_display = ('created_at', 'category', 'grading', 'person', 'comment')  
+    search_fields = ('person', 'category', 'comment','created_at')
 
 admin.site.register(feedbackItem, FeedbackItemAdmin)
 
 class FeedbackGeberAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email','angemeldet', 'bewertet')
+    list_display = ('username', 'email','angemeldet', 'bewertet','partner')
+    search_fields = ('username', 'email','angemeldet','bewertet','partner')
 admin.site.register(feedbackGeber, FeedbackGeberAdmin)
