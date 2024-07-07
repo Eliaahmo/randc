@@ -2,6 +2,12 @@ from django.contrib import admin
 from .models import mitarbeiter
 from .models import feedbackItem
 from .models import feedbackGeber
+from django.contrib.admin.sites import AdminSite 
+
+AdminSite.site_header = "Systemverwaltung"
+AdminSite.site_title = "Systemverwaltung"
+AdminSite.index_title = "Willkommen in der Systemverwaltung"
+
 
 
 class MitarbeiterAdmin(admin.ModelAdmin):

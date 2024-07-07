@@ -1,83 +1,91 @@
 /* custom_admin.css */
+
+/* Allgemeine Stile */
 body {
-    background: #f5f5f5;
+    background: #f4f6f9;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Kopfzeile */
 .header {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 10px 20px;
-    border-bottom: 2px solid #34495e;
+    background: #00162c;
+    color: #fff;
+    padding: 20px;
+    border-bottom: 2px solid #00162c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .header h1 {
     font-size: 24px;
     margin: 0;
-    color: #ecf0f1;
+    color: #fff;
 }
 
-.module h2, .module caption, .inline-group h2 {
-    color: #2c3e50;
-    border-bottom: 2px solid #34495e;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+.header a.feedback-link {
+    color: #fff;
+    text-decoration: none;
     font-weight: bold;
 }
 
-fieldset.module, .inline-group {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 15px;
-}
-
-.module th, .module td {
-    border-bottom: 1px solid #ddd;
-    padding: 8px 10px;
-}
-
-.module th {
-    background: #ecf0f1;
-    font-weight: bold;
-}
-
-.module td a {
-    color: #3498db;
-}
-
-.module td a:hover {
+.header a.feedback-link:hover {
     text-decoration: underline;
 }
 
-button, input[type="submit"], input[type="button"] {
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+/* Hauptinhalt */
+.container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
 }
 
-button:hover, input[type="submit"]:hover, input[type="button"]:hover {
-    background: #2980b9;
+.main-content {
+    flex: 3;
+    padding: 20px;
 }
 
-button:focus, input[type="submit"]:focus, input[type="button"]:focus {
-    outline: none;
-    box-shadow: 0 0 3px #3498db;
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-right: 20px;
 }
 
+.module, .inline-group {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    color: #00162c;
+    border-bottom: 2px solid #00162c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Tabellenstile */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 table th, table td {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
 }
 
@@ -95,29 +103,84 @@ table tr:hover {
     background: #f1f1f1;
 }
 
-.sidebar {
-    background: #34495e;
-    color: #ecf0f1;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+/* Formularelemente */
+button, input[type="submit"], input[type="button"] {
+    background: #00162c;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.sidebar a {
-    color: #ecf0f1;
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background: #29b93a;
 }
 
-.sidebar a:hover {
-    text-decoration: underline;
+button:focus, input[type="submit"]:focus, input[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0 3px #29b93a;
 }
 
+/* Fußzeile */
 footer {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: #00162c;
+    color: #fff;
     text-align: center;
     padding: 10px 0;
-    border-top: 2px solid #34495e;
-    position: fixed;
+    border-top: 2px solid #00162c;
+    margin-top: auto;
+    position: relative;
     width: 100%;
-    bottom: 0;
+}
+
+/* Anpassungen für die Admin-Seite */
+.admin-header {
+    background: #00162c;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.admin-header h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #fff;
+}
+
+.admin-header .module {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.admin-header h1 a {
+    color: #fff;
+}
+
+.admin-header h1 a:hover {
+    color: #ecf0f1;
+}
+
+/* Link zur Feedback-Übersicht */
+.feedback-module {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.feedback-module a {
+    color: #00162c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.feedback-module a:hover {
+    text-decoration: underline;
 }
