@@ -41,8 +41,16 @@ def feedback_overview(request):
 
     total_avg_grade = filtered_feedback_data.aggregate(avg_grade=Avg('grading'))['avg_grade']
 
-    # Laden Sie die Kategorien aus dem Modell Fragenkatalog
+    # Laden Sie die Kategorien aus dem Modell Category
     fragen = Fragenkatalog.objects.all()
+    fragen_list = list(fragen)
+
+    # Erstellen Sie eine Liste von Tupeln (Frage, Durchschnittliches Grading)
+    fragen_avg_grades = []
+    for index, frage in enumerate(fragen_list):
+        category_name = f"Kategorie {index + 1}"
+        avg_grade = category_avg_grades.get(category_name, 0.0)
+        fragen_avg_grades.append((frage.name, avg_grade))
 
     context = {
         'persons': persons,
@@ -50,11 +58,10 @@ def feedback_overview(request):
         'category_avg_grades': category_avg_grades,
         'total_avg_grade': total_avg_grade if total_avg_grade is not None else 0.0,
         'selected_person': person_filter if person_filter else 'Alle',
-        'fragen': fragen
+        'fragen_avg_grades': fragen_avg_grades
     }
 
     return render(request, 'feedback_overview.html', context)
-
 
 def login(request):
     return render(request, 'login.html')

@@ -33,6 +33,7 @@ class feedbackGeber(AbstractUser):
     angemeldet = models.BooleanField(default=False)
     bewertet = models.BooleanField(default=False)
     partner = models.BooleanField(default=False)
+    führungskraft = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -42,9 +43,6 @@ class feedbackGeber(AbstractUser):
 
 class Fragenkatalog(models.Model):
     name = models.CharField(max_length=255, unique=True)
-
-    class Meta:
-        verbose_name_plural = "Fragenkatalog"
 
     def __str__(self):
         return self.name

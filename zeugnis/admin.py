@@ -35,8 +35,8 @@ class FeedbackItemAdmin(admin.ModelAdmin):
 admin.site.register(feedbackItem, FeedbackItemAdmin)
 
 class FeedbackGeberAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email','angemeldet', 'bewertet','partner')
-    search_fields = ('username', 'email','angemeldet','bewertet','partner')
+    list_display = ('username', 'email','angemeldet', 'bewertet','partner','führungskraft')
+    search_fields = ('username', 'email','angemeldet','bewertet','partner','führungskraft')
 admin.site.register(feedbackGeber, FeedbackGeberAdmin)
 
 class FragenkatalogAdmin(admin.ModelAdmin):

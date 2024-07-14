@@ -48,7 +48,7 @@
       <button type="submit">Filtern</button>
     </form>
 
-    {% if fragen %}
+    {% if fragen_avg_grades %}
     <h2>Feedback von {{ selected_person }}</h2>
     <table>
       <thead>
@@ -59,10 +59,9 @@
         </tr>
       </thead>
       <tbody>
-        {% for frage in fragen %}
-        {% for category, avg_grade in category_avg_grades.items %}
+        {% for frage_name, avg_grade in fragen_avg_grades %}
         <tr>
-          <td>{{ frage.name }}</td>
+          <td>{{ frage_name }}</td>
           <td>{{ avg_grade|floatformat:"2" }}</td>
           <td>
             <div class="stars">
@@ -78,7 +77,6 @@
             </div>
           </td>
         </tr>
-        {% endfor %}
         {% endfor %}
         <tr>
           <td><strong>Gesamt</strong></td>
