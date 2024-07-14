@@ -24,14 +24,11 @@
     .star.half-filled::before { content: "\2605"; color: orange; position: absolute; width: 50%; overflow: hidden; }
   </style>
   <script>
-
-  function logout() {
-    console.log("Logout wird durchgeführt...");
-    window.location.href = "/login";
-  }
+    function logout() {
+      console.log("Logout wird durchgeführt...");
+      window.location.href = "/login";
+    }
   </script>
-
-   
 </head>
 <body>
   <div class="container">
@@ -51,8 +48,8 @@
       <button type="submit">Filtern</button>
     </form>
 
-    {% if category_avg_grades %}
-    <h2>Feeback von {{selected_person}}</h2>
+    {% if fragen %}
+    <h2>Feedback von {{ selected_person }}</h2>
     <table>
       <thead>
         <tr>
@@ -62,16 +59,17 @@
         </tr>
       </thead>
       <tbody>
+        {% for frage in fragen %}
         {% for category, avg_grade in category_avg_grades.items %}
         <tr>
-          <td>{{ category }}</td>
+          <td>{{ frage.name }}</td>
           <td>{{ avg_grade|floatformat:"2" }}</td>
           <td>
             <div class="stars">
               {% for i in 1|custom_range:5 %}
-                {% if i <= avg_grade|to_stars %}
+                {% if i <= avg_grade|default:0|to_stars %}
                   <span class="star filled">&#9733;</span>
-                {% elif i == avg_grade|to_stars|add:0.5 %}
+                {% elif i == avg_grade|default:0|to_stars|add:0.5 %}
                   <span class="star half-filled">&#9733;</span>
                 {% else %}
                   <span class="star">&#9733;</span>
@@ -81,22 +79,22 @@
           </td>
         </tr>
         {% endfor %}
+        {% endfor %}
         <tr>
           <td><strong>Gesamt</strong></td>
           <td><strong>{{ total_avg_grade|floatformat:"2" }}</strong></td>
           <td>
             <div class="stars">
-              <div class="stars">
-                {% for i in 1|custom_range:5 %}
-                  {% if i <= total_avg_grade|to_stars %}
-                    <span class="star filled">&#9733;</span>
-                  {% elif i == total_avg_grade|to_stars|add:0.5 %}
-                    <span class="star half-filled">&#9733;</span>
-                  {% else %}
-                    <span class="star">&#9733;</span>
-                  {% endif %}
-                {% endfor %}
-              </div>
+              {% for i in 1|custom_range:5 %}
+                {% if i <= total_avg_grade|to_stars %}
+                  <span class="star filled">&#9733;</span>
+                {% elif i == total_avg_grade|to_stars|add:0.5 %}
+                  <span class="star half-filled">&#9733;</span>
+                {% else %}
+                  <span class="star">&#9733;</span>
+                {% endif %}
+              {% endfor %}
+            </div>
           </td>
         </tr>
       </tbody>

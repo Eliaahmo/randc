@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import mitarbeiter
 from .models import feedbackItem
 from .models import feedbackGeber
+from .models import Fragenkatalog
 from django.contrib.admin.sites import AdminSite 
 
 AdminSite.site_header = "Systemverwaltung"
@@ -37,3 +38,9 @@ class FeedbackGeberAdmin(admin.ModelAdmin):
     list_display = ('username', 'email','angemeldet', 'bewertet','partner')
     search_fields = ('username', 'email','angemeldet','bewertet','partner')
 admin.site.register(feedbackGeber, FeedbackGeberAdmin)
+
+class FragenkatalogAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+admin.site.register(Fragenkatalog, FragenkatalogAdmin)

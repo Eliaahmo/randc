@@ -37,23 +37,8 @@ def to_stars(avg_grade):
         return 1.5
     else:
         return 1
-'''
-@register.filter(name='custom_range')
-def custom_range(value, arg=None):
-    if arg is None:
-        start, end = 1, value
-    else:
-        start, end = value, arg
-    return range(start, end + 1)
 
-@register.filter(name='to_stars')
-def to_stars(avg_grade):
-    if avg_grade is None:
-        return 0
-    return avg_grade
 
-@register.filter(name='add')
-def add(value, arg):
-    return value + arg
-
-'''
+@register.filter(name='custom_get')
+def custom_get(dictionary, key):
+    return dictionary.get(key, 0.0)  

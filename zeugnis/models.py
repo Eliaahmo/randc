@@ -38,3 +38,14 @@ class feedbackGeber(AbstractUser):
         if not self.pk:
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
+
+
+class Fragenkatalog(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Fragenkatalog"
+
+    def __str__(self):
+        return self.name
+    

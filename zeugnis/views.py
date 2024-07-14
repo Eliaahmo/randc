@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from .models import feedbackItem, mitarbeiter
+from .models import feedbackItem, mitarbeiter, Fragenkatalog, feedbackGeber
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 from .forms import MitarbeiterForm
@@ -41,12 +41,16 @@ def feedback_overview(request):
 
     total_avg_grade = filtered_feedback_data.aggregate(avg_grade=Avg('grading'))['avg_grade']
 
+    # Laden Sie die Kategorien aus dem Modell Fragenkatalog
+    fragen = Fragenkatalog.objects.all()
+
     context = {
         'persons': persons,
         'filtered_feedback_data': filtered_feedback_data,
         'category_avg_grades': category_avg_grades,
         'total_avg_grade': total_avg_grade if total_avg_grade is not None else 0.0,
-        'selected_person': person_filter if person_filter else 'Alle'
+        'selected_person': person_filter if person_filter else 'Alle',
+        'fragen': fragen
     }
 
     return render(request, 'feedback_overview.html', context)
